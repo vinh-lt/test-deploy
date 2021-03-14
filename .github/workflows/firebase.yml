@@ -22,9 +22,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install -g yarn
-    - name: yarn install, build and test
+    - name: npm install, build and test
       run: |
         npm install
+        npm install firebase firebase-functions firebase-admin
         firebase functions:config:get > src/runtimeconfig.json
         npm build
     - name: Archive Build
