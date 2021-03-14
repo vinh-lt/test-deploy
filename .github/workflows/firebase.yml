@@ -3,8 +3,6 @@ name: Firebase CI
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   build:
@@ -16,20 +14,16 @@ jobs:
         node-version: [14.x]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm install -g yarn
-    - name: npm install, build and test
+    - name: Checkout Repo
+      uses: actions/checkout@main
+    - name: Install Dependencies
+      run: npm install
+    - name: Build
       run: |
-        npm install
-        npm install firebase firebase-functions firebase-admin
         firebase functions:config:get > src/runtimeconfig.json
-        npm build
-    - name: Archive Build
-      uses: actions/upload-artifact@v2
+        npm run build
+    - name: Archive Artifact
+      uses: actions/upload-artifact@main
       with:
         name: build
         path: build
@@ -39,14 +33,15 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Download Build
-        uses: actions/download-artifact@v2
+      - name: Checkout Repo
+        uses: actions/checkout@main
+      - name: Download Artifact
+        uses: actions/download-artifact@main
         with:
           name: build
           path: build
-      - name: Depoy to Firebase
-        uses: w9jds/firebase-action@master
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@main
         with:
           args: deploy --only hosting
         env:
