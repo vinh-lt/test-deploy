@@ -11,6 +11,9 @@
 # production
 /build
 
+#config
+runtimeconfig.json
+
 # misc
 .DS_Store
 .env.local
