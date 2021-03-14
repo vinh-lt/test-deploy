@@ -18,8 +18,8 @@ jobs:
         export PATH=~/.npm-global/bin:$PATH
         source ~/.profile
         npm install -g firebase-tools
-        npm install
         firebase functions:config:get > src/runtimeconfig.json
+        npm install
     - name: Build
       run: |
         npm run build
