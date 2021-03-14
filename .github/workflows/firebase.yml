@@ -6,23 +6,17 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [14.x]
-
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@main
+      uses: actions/checkout@v2
     - name: Install Dependencies
       run: npm install
     - name: Build
       run: |
         npm run build
     - name: Archive Artifact
-      uses: actions/upload-artifact@main
+      uses: actions/upload-artifact@v2
       with:
         name: build
         path: build
@@ -33,14 +27,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@main
+        uses: actions/checkout@v2
       - name: Download Artifact
-        uses: actions/download-artifact@main
+        uses: actions/download-artifact@v2
         with:
           name: build
           path: build
       - name: Deploy to Firebase
-        uses: w9jds/firebase-action@main
+        uses: w9jds/firebase-action@v2
         with:
           args: deploy --only hosting
         env:
