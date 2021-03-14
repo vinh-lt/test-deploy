@@ -1,0 +1,10 @@
+{
+	"services": {
+		"storage_bucket": "test-deploy-d71b8.appspot.com",
+		"api_key": "AIzaSyCaiZrkkj-3rOmroedTfxjClky0PMt3xUk",
+		"messaging_sender_id": "659966722",
+		"app_id": "1:659966722:web:5538b0b1454cf14e63901b",
+		"auth_domain": "test-deploy-d71b8.firebaseapp.com",
+		"project_id": "test-deploy-d71b8"
+	}
+}
