@@ -11,15 +11,21 @@ jobs:
     steps:
     - name: Checkout Repo
       uses: actions/checkout@main
-    - name: Install Dependencies
+    - name: Install firebase-tools
       run: |
         mkdir ~/.npm-global
         npm config set prefix '~/.npm-global'
         export PATH=~/.npm-global/bin:$PATH
         source ~/.profile
         npm install -g firebase-tools
-        firebase functions:config:get > src/runtimeconfig.json
-        npm install
+    - name: Install Dependencies
+      run: npm install
+      env: 
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+    - name: Get Environment
+      run: firebase functions:config:get services > src/fbconfig.json
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
     - name: Build
       run: |
         npm run build
